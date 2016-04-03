@@ -2,6 +2,8 @@
 
 A simple money handling library
 
+[![Build Status](https://travis-ci.org/rbone/rust-money.svg?branch=master)](https://travis-ci.org/rbone/rust-money)
+
 ## Installation
 
 Add to your `Cargo.toml`
