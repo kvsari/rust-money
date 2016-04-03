@@ -54,4 +54,3 @@ pub const JPY: Currency<'static> = Currency {
     divisor: 1,
     symbol: '¥',
 };
-
