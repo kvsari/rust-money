@@ -3,7 +3,6 @@ name = "money"
 version = "0.1.0"
 authors = ["Richard Bone <rjonbone@gmail.com>"]
 description = "A simple money handling library"
-license = "MIT"
 license-file = "LICENSE"
 repository = "https://github.com/rbone/rust-money"
 homepage = "https://github.com/rbone/rust-money"
