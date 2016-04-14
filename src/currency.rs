@@ -33,6 +33,7 @@ pub fn from_code(code: &str) -> Result<Currency, &'static str> {
         "USD" => Ok(USD),
         "AUD" => Ok(AUD),
         "JPY" => Ok(JPY),
+        "BTC" => Ok(BTC),
         _ => Err("Unknown currency"),
     }
 }
@@ -53,4 +54,10 @@ pub const JPY: Currency<'static> = Currency {
     code: "JPY",
     divisor: 1,
     symbol: '¥',
+};
+
+pub const BTC: Currency<'static> = Currency {
+    code: "BTC",
+    divisor: 100000000,
+    symbol: 'Ƀ',
 };
