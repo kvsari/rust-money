@@ -1,6 +1,5 @@
-use std::cmp::PartialEq;
-use std::cmp::PartialOrd;
-use std::cmp::Ordering;
+use std::cmp::{PartialEq, PartialOrd, Ordering};
+use std::ops::{Add, Sub, Div, Mul};
 
 pub mod currency;
 
@@ -81,5 +80,264 @@ impl<'a> PartialOrd for Money<'a, i64> {
     
     fn ge(&self, rhs: &Money<'a, i64>) -> bool {
         self > rhs || self == rhs
+    }
+}
+
+/// Overload the '+' operator for Money objects.
+///
+/// # Panics
+/// Panics if the two addends are different currencies
+impl<'a> Add<Money<'a, i64>> for Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn add(self, rhs: Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount + rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't add two different currencies.");
+        }
+    }
+}
+
+impl<'a, 'b> Add<&'b Money<'a, i64>> for Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn add(self, rhs: &Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount + rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't add two different currencies.");
+        }
+    }
+}
+
+impl<'a, 'b> Add<Money<'a, i64>> for &'b Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn add(self, rhs: Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount + rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't add two different currencies.");
+        }
+    }
+}
+
+impl<'a, 'b, 'c> Add<&'b Money<'a, i64>> for &'c Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn add(self, rhs: &Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount + rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't add two different currencies.");
+        }
+    }
+}
+
+/// Overload the '-' operator for Money objects.
+///
+/// # Panics
+/// Panics if the minuend and subtrahend are different currencies
+impl<'a> Sub<Money<'a, i64>> for Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn sub(self, rhs: Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount - rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't subtract two different currencies.");
+        }
+    }
+}
+
+impl<'a, 'b> Sub<&'b Money<'a, i64>> for Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn sub(self, rhs: &Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount - rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't subtract two different currencies.");
+        }
+    }
+}
+
+impl<'a, 'b> Sub<Money<'a, i64>> for &'b Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn sub(self, rhs: Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount - rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't subtract two different currencies.");
+        }
+    }
+}
+
+impl<'a, 'b, 'c> Sub<&'b Money<'a, i64>> for &'c Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn sub(self, rhs: &Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount - rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't subtract two different currencies.");
+        }
+    }
+}
+
+/// Overload the '/' operator for Money objects.
+///
+/// # Panics
+/// Panics if the dividend and divisor are different currencies
+impl<'a> Div<Money<'a, i64>> for Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn div(self, rhs: Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount / rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't divide two different currencies.");
+        }
+    }
+}
+
+impl<'a, 'b> Div<&'b Money<'a, i64>> for Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn div(self, rhs: &Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount / rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't divide two different currencies.");
+        }
+    }
+}
+
+impl<'a, 'b> Div<Money<'a, i64>> for &'b Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn div(self, rhs: Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount / rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't divide two different currencies.");
+        }
+    }
+}
+
+impl<'a, 'b, 'c> Div<&'b Money<'a, i64>> for &'c Money<'a, i64> {
+    type Output = Money<'a, i64>;
+
+    fn div(self, rhs: &Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount / rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't divide two different currencies.");
+        }
+    }
+}
+
+/// Overload the '*' operator for Money objects.
+///
+/// # Panics
+/// Panics if the multiplicand and multiplier are different currencies
+impl<'a> Mul<Money<'a, i64>> for Money<'a, i64> {
+    type Output = Money<'a, i64>;
+    
+    fn mul(self, rhs: Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount * rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't multiply two different currencies.");
+        }
+    }
+}
+
+             
+
+impl<'a, 'b> Mul<&'b Money<'a, i64>> for Money<'a, i64> {
+    type Output = Money<'a, i64>;
+    
+    fn mul(self, rhs: &Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount * rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't multiply two different currencies.");
+        }
+    }
+}
+             
+             
+impl<'a, 'b> Mul<Money<'a, i64>> for &'b Money<'a, i64> {
+    type Output = Money<'a, i64>;
+    
+    fn mul(self, rhs: Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount * rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't multiply two different currencies.");
+        }
+    }
+}                                                    
+
+impl<'a, 'b, 'c> Mul<&'b Money<'a, i64>> for &'c Money<'a, i64> {
+    type Output = Money<'a, i64>;
+    
+    fn mul(self, rhs: &Money<'a, i64>) -> Money<'a, i64> {
+        if self.currency == rhs.currency {
+            Money {
+                amount: self.amount * rhs.amount,
+                currency: self.currency,
+            }
+        } else {
+            panic!("Can't multiply two different currencies.");
+        }
     }
 }

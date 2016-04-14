@@ -1,6 +1,6 @@
 use std::cmp::PartialEq;
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Currency<'a> {
     code: &'a str,
     divisor: i32,
