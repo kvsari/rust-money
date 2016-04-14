@@ -1,3 +1,4 @@
+use std::cmp::PartialEq;
 
 #[derive(Debug)]
 pub struct Currency<'a> {
@@ -54,3 +55,17 @@ pub const JPY: Currency<'static> = Currency {
     divisor: 1,
     symbol: '¥',
 };
+
+impl<'a> PartialEq for Currency<'a> {
+    fn eq(&self, rhs: &Currency) -> bool {
+        self.code == rhs.code()
+            && self.divisor == rhs.divisor()
+            && self.symbol == rhs.symbol()
+    }
+
+    fn ne(&self, rhs: &Currency) -> bool {
+        self.code != rhs.code()
+            || self.divisor != rhs.divisor()
+            || self.symbol != rhs.symbol()
+    }
+}

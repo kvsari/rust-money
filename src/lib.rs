@@ -1,3 +1,5 @@
+use std::cmp::PartialEq;
+
 pub mod currency;
 
 #[derive(Debug)]
@@ -23,3 +25,14 @@ impl<'a> Money<'a, i64> {
                        amount = formatted_amount);
     }
 }
+
+impl<'a> PartialEq for Money<'a, i64> {
+    fn eq(&self, rhs: &Money<'a, i64>) -> bool {
+        self.amount == rhs.amount && self.currency == rhs.currency
+    }
+
+    fn ne(&self, rhs: &Money<'a, i64>) -> bool {
+        self.amount != rhs.amount || self.currency != rhs.currency
+    }
+}
+
