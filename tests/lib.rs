@@ -16,6 +16,14 @@ fn test_japan_formatting() {
 }
 
 #[test]
+fn test_bitcoin_formatting() {
+    let money = Money::new(12345, currency::BTC);
+    assert_eq!("BTCɃ0.00012345", money.format());
+    let satoshi = Money::new(1, currency::BTC);
+    assert_eq!("BTCɃ0.00000001", satoshi.format());
+}
+
+#[test]
 fn test_create_currency_from_code() {
     let currency = currency::from_code("USD").unwrap();
     assert_eq!(currency.code(), "USD");
