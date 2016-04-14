@@ -1,5 +1,7 @@
 extern crate money;
 
+use std::cmp::Ordering;
+
 use money::Money;
 use money::currency;
 
@@ -56,4 +58,33 @@ fn test_money_eq() {
     assert!(same == money);
     assert!(money != short);
     assert!(money != american);
+}
+
+#[test]
+fn test_money_ord() {
+    let large = Money::new(1050, currency::USD);
+    let same = Money::new(1050, currency::USD);
+    let small = Money::new(25, currency::USD);
+    let diff = Money::new(1050, currency::AUD);
+
+    assert_eq!(small.partial_cmp(&large), Some(Ordering::Less));
+    assert_eq!(large.partial_cmp(&small), Some(Ordering::Greater));
+    assert_eq!(large.partial_cmp(&same), Some(Ordering::Equal));
+    assert_eq!(large.partial_cmp(&diff), None);
+
+    assert!(large > small);
+    assert!(large >= small);
+    assert!(small < large);
+    assert!(small <= large);
+    assert!(large >= same);
+    assert!(large <= same);    
+}
+
+#[test]
+#[should_panic]
+fn test_different_currencies_ord_should_panic() {
+    let dollar = Money::new(1050, currency::USD);
+    let yen = Money::new(1050, currency::JPY);
+
+    assert!(dollar > yen);
 }

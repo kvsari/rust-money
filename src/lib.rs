@@ -1,4 +1,6 @@
 use std::cmp::PartialEq;
+use std::cmp::PartialOrd;
+use std::cmp::Ordering;
 
 pub mod currency;
 
@@ -36,3 +38,48 @@ impl<'a> PartialEq for Money<'a, i64> {
     }
 }
 
+/// Overload operators < > <= => for Money object
+///
+/// #Panics
+/// Panics if the currencies are different
+impl<'a> PartialOrd for Money<'a, i64> {
+    fn partial_cmp(&self, rhs: &Money<'a, i64>) -> Option<Ordering> {
+        if self.currency == rhs.currency {
+            if self < rhs {
+                Some(Ordering::Less)
+            } else if self == rhs {
+                Some(Ordering::Equal)
+            } else {
+                Some(Ordering::Greater)
+            }
+        } else {
+            None
+        }
+    }
+
+    fn lt(&self, rhs: &Money<'a, i64>) -> bool {
+        if self.currency == rhs.currency {
+            self.amount < rhs.amount
+        }
+        else {
+            panic!("Can't compare different currencies.");
+        }
+    }
+
+    fn le(&self, rhs: &Money<'a, i64>) -> bool {
+        self < rhs || self == rhs
+    }
+    
+    fn gt(&self, rhs: &Money<'a, i64>) -> bool {
+        if self.currency == rhs.currency {
+            self.amount > rhs.amount
+        }
+        else {
+            panic!("Can't compare different currencies.");
+        }
+    }
+    
+    fn ge(&self, rhs: &Money<'a, i64>) -> bool {
+        self > rhs || self == rhs
+    }
+}
